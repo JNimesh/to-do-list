@@ -48,4 +48,17 @@ This will start the application without any live-reloading features.
 - If you wish to run the application on a different port, set the `PORT` environment variable to your desired value before starting the app.
 
   For example:
-  ```PORT=8080 npm start```
+- **UNIX-based systems (Linux/MacOS)**:
+  ```
+  PORT=8080 npm start
+  ```
+
+- **Windows (Command Prompt)**:
+  ```
+  set PORT=8080 && npm start
+  ```
+
+- **Windows (PowerShell)**:
+  ```
+  $env:PORT=8080; npm start
+  ```
