@@ -1,17 +1,20 @@
 (function () {
     const localStorageKey = "items";
     const items = localStorage.getItem(localStorageKey) ? JSON.parse(localStorage.getItem(localStorageKey)) : [];
-    const NOTIFICATION_INTERVAL = 2000;
+    const NOTIFICATION_INTERVAL = 5000;
+    let previousNotificationTimeoutFunctionId = null;
 
     const itemsContainer = document.getElementById("items-container");
     const addItemButton = document.getElementById("add-item-button");
     const addItemInput = document.getElementById("add-item-input");
-    const addItemNotification = document.getElementById("add-item-notification");
+    const addItemNotification = document.getElementById("notification");
 
     function deleteItem(index) {
+        const deletedItemName = items[index].name;
         items.splice(index, 1);
         localStorage.setItem(localStorageKey, JSON.stringify(items));
         renderItems();
+        showNotification(`Item: "${deletedItemName}" deleted successfully.`, 'success');
     }
 
     function toggleDoneStatus(index) {
@@ -21,23 +24,27 @@
     }
 
     function handleAddItem() {
-        console.log(addItemNotification);
-        addItemNotification.classList.remove('success');
-        addItemNotification.classList.remove('error');
         const itemValue = addItemInput.value;
         if (itemValue?.trim().length) {
-            addItemNotification.classList.add('success');
-            addItemNotification.innerText = `Item: "${itemValue}" added successfully.`;
             addItemInput.value = "";
-            items.push({name: itemValue, done: true});
+            items.push({name: itemValue, done: false});
             localStorage.setItem(localStorageKey, JSON.stringify(items));
+            showNotification(`Item: "${itemValue}" added successfully.`, 'success');
         } else {
-            addItemNotification.classList.add('error');
-            addItemNotification.innerText = "Please enter a valid item.";
+            showNotification("Item name cannot be empty or blank.", 'error');
         }
         renderItems();
+    }
+
+
+    function showNotification(message, type) {
+        previousNotificationTimeoutFunctionId && clearTimeout(previousNotificationTimeoutFunctionId)
+        addItemNotification.classList.remove('success');
+        addItemNotification.classList.remove('error');
+        addItemNotification.classList.add(type);
+        addItemNotification.innerText = message;
         addItemNotification.classList.remove('hidden');
-        setTimeout(() => {
+        previousNotificationTimeoutFunctionId = setTimeout(() => {
             addItemNotification.classList.add('hidden');
         }, NOTIFICATION_INTERVAL);
     }
@@ -46,13 +53,14 @@
         itemsContainer.innerHTML = "";
 
         if (items.length === 0) {
-            itemsContainer.innerHTML = '<div>No items found </div>';
+            itemsContainer.innerHTML = '<div>No items found...</div>';
         } else {
             const wrapperDiv = document.createElement('div');
             wrapperDiv.className = 'to-do-items-wrapper';
 
             const header = document.createElement('h2');
-            header.textContent = 'Items:';
+            header.textContent = 'TO DO Items';
+            header.className = 'title';
             wrapperDiv.appendChild(header);
 
             items.forEach((item, index) => {

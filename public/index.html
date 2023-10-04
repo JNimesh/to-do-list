@@ -7,12 +7,15 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div>
-    <div id="add-item-notification" class="add-item-notification"></div>
-    <input id="add-item-input" type="text"/>
-    <button id="add-item-button" class="primary">Add Task</button>
-</div>
-<div id="items-container" class="items-container">
+<div class="to-do-list-page-container">
+    <div class="notification-wrapper">
+        <div id="notification" class="notification"></div>
+    </div>
+    <div class="add-item-form-container">
+        <input placeholder="Item Name" id="add-item-input" type="text"/>
+        <button id="add-item-button" class="primary">Add Task</button>
+    </div>
+    <div id="items-container" class="items-container"></div>
 </div>
 </body>
 <script src="app.js"></script>
