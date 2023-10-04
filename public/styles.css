@@ -1,0 +1,85 @@
+:root {
+    --to-do-item-bg: lightgrey;
+    --padding-default: 0.25rem;
+    --margin-bottom-default: 0.5rem;
+    --font-size-small: 0.75rem;
+    --notification-success-bg: lightgreen;
+    --notification-error-bg: pink;
+
+    --button-primary: lightgreen;
+    --button-secondary: white;
+    --button-padding: 0.5rem;
+}
+
+.to-do-item {
+    background: var(--to-do-item-bg);
+    padding: var(--padding-default);
+    margin-bottom: var(--margin-bottom-default);
+    border-radius: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.to-do-item .item-name {
+    margin-right: 1rem;
+}
+
+.to-do-item .item-status-checkbox {
+    margin-right: 1rem;
+}
+
+.to-do-item button {
+    margin-right: 1rem;
+    margin-left: auto;
+}
+
+.to-do-item.completed .item-name {
+    text-decoration: line-through;
+}
+
+.add-item-notification {
+    padding: var(--padding-default);
+    font-size: var(--font-size-small);
+    margin-bottom: var(--margin-bottom-default);
+}
+
+.add-item-notification.success {
+    background: var(--notification-success-bg);
+}
+
+.add-item-notification.error {
+    background: var(--notification-error-bg);
+}
+
+.hidden {
+    display: none;
+}
+
+.items-container {
+    padding-top: 1rem;
+}
+
+button {
+    cursor: pointer;
+    border-radius: 10%;
+}
+
+button.primary {
+    background: var(--button-primary);
+    border: none;
+    padding: var(--button-padding);
+}
+
+button.secondary {
+    background: var(--button-secondary);
+    border: 1px solid var(--button-primary);
+    padding: var(--button-padding);
+}
+
+input[type="text"] {
+    padding: var(--button-padding);
+    margin-bottom: var(--margin-bottom-default);
+    border-radius: 5%;
+}
+
